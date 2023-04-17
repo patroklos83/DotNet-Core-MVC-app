@@ -1,0 +1,47 @@
+﻿@*@page*@
+
+@using WebApplicationExample.DTO;
+
+@model List<ArticleDTO>
+
+@{
+    List<ArticleDTO>? articles = ViewData["Articles"] != null ? ((List<ArticleDTO>?)ViewData["Articles"]) : new List<ArticleDTO>();
+}
+
+<h2>Articles</h2>
+<p>
+    <a href="Article/?mode=create" target="_blank">Create new article!</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+               Title
+            </th>
+            <th>
+                Author
+            </th>
+        </tr>
+    </thead>
+    <tbody>    
+        @if (articles == null) return;
+        @foreach (var item in articles)
+        {
+            <tr>
+                <td>
+                    <a href="/Article/@item.Id" target="_blank">@item.Id</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

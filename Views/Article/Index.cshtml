@@ -1,0 +1,114 @@
+﻿@*@page*@
+
+@using Microsoft.AspNetCore.Antiforgery;
+@using WebApplicationExample.DTO;
+
+@model ArticleDTO
+
+@inject IAntiforgery antiforgery
+@{
+    var token = antiforgery.GetAndStoreTokens(Context).RequestToken;
+
+    ArticleDTO? article = ViewData["Article"] != null ? ((ArticleDTO?)ViewData["Article"]) : null;
+    string? mode = !string.IsNullOrEmpty(Context.Request.Query["mode"]) ? Context.Request.Query["mode"] : string.Empty;
+}
+
+
+@*@section Scripts
+    {
+    <script>
+
+    $.ajax({
+    type: "POST",
+    url: 'yourURL',
+    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() }
+})
+
+        $(function () {
+            $.post("/search?handler=ajax", { __RequestVerificationToken: '@token' });
+        })
+    </script>
+}*@
+
+<h2>
+    @(article != null ? article.Title : string.Empty)
+</h2>
+
+<table>
+    <tr>
+        <td>
+            @if (article != null)
+            {
+                var id = article.Id;
+                if (mode != null && mode.Equals("edit"))
+                {
+                    <a href="/Article/@id"> Cancel </a>
+                }
+                else if (string.IsNullOrEmpty(mode) || !mode.Equals("edit"))
+                {
+                    <a href="/Article/@id?mode=edit"> Edit </a>
+                }
+            }
+        </td>
+    </tr>
+</table>
+ 
+<br/>
+<br/>
+<br/>
+
+@using (Html.BeginForm("Save", "Article", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.LabelFor(model => model.Id, new { @class = "control-label col-md-2" })
+    @Html.DisplayFor(model => model.Id)
+    <br />
+    <br />
+    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+
+    if (mode != null && (mode.Equals("create") || mode.Equals("edit")))
+    {
+        string? title = article != null ? article.Title : string.Empty;
+        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @Value = title }})
+        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger"} )
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Title)
+    }
+
+    <br />
+    <br />
+    @Html.LabelFor(model => model.Author, new { @class = "control-label col-md-2" })
+    @Html.HiddenFor(model => model.Id);
+
+    if (mode != null && (mode.Equals("create") || mode.Equals("edit")))
+    {
+        string? author = article != null ? article.Author : string.Empty;
+        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = author }})
+        @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger"})
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Author)
+    }
+
+
+    <br>
+    <br>
+    if (mode != null && (mode.Equals("create") || mode.Equals("edit")))
+    {
+        <input type="submit" value="Save" class="button-9" role="button" />
+    }
+}
+
+@if (mode != null && mode.Equals("edit"))
+    {
+        using (Html.BeginForm("Delete", "Article", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Id);
+            <input type="submit" value="Delete" class="button-9" role="button" />
+        }
+    }
