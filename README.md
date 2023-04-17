@@ -16,8 +16,6 @@ For building and running the application you need:
 
 A New agency requires a User friendly Interface, to view, create and edit Articles posted by the agency.
 
-![enter image description here](images/uml.PNG)
-
 ## Running the app
 
 To run the web application there are 3 options. 
@@ -62,8 +60,8 @@ http://localhost:5000/Articles
 
 
 
-![enter image description here](/Images/articles-summary.png)
-![enter image description here](/Images/articles-edit.png)
+![enter image description here](/Images/articles-summary.PNG)
+![enter image description here](/Images/article-edit.PNG)
 
 
 
