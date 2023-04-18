@@ -1,4 +1,5 @@
 
+
 # Sample .Net MVC CRUD Application
 
 An example template ASP.Net core MVC application for creating, updating, deleting entities.
@@ -8,13 +9,32 @@ An example template ASP.Net core MVC application for creating, updating, deletin
 
 For building and running the application you need:
 
--   [.Net framework 7 or newer](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
--  Visual Studio IDE
+- [.Net framework 7 or newer](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+- Visual Studio IDE
 - [Docker 4.17.0 or newer ](https://www.docker.com/products/docker-desktop/)
 
 ## Case Study
 
 A New agency requires a User friendly Interface, to view, create and edit Articles posted by the agency.
+
+## Required Libraries
+
+ - [NHibernate](https://www.nuget.org/packages/NHibernate/5.4.1?_src=template)
+ - [AutoMapper.Extensions.Microsoft.DependencyInjection](https://www.nuget.org/packages/AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1?_src=template)
+ - [SQLite](https://www.nuget.org/packages/SQLite/3.13.0?_src=template)
+ - [System.Data.SQLite](https://www.nuget.org/packages/System.Data.SQLite/1.0.117?_src=template)
+
+## Database Schema (SQLite)
+
+    CREATE TABLE [Articles] (  
+      [Id] text NOT NULL  
+    , [Title] text NOT NULL  
+    , [IsDeleted] int DEFAULT (0) NOT NULL  
+    , [Author] text DEFAULT ('') NOT NULL  
+    , CONSTRAINT [sqlite_autoindex_Articles_1] PRIMARY KEY ([Id])  
+    );
+
+
 
 ## Running the app
 
