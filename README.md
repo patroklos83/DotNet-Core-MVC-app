@@ -4,6 +4,10 @@
 
 An example template ASP.Net core MVC application for creating, updating, deleting entities.
 
+## Case Study
+
+A New agency requires a User friendly Interface, to view, create and edit Articles posted by the agency.
+
 
 ## Requirements
 
@@ -12,10 +16,6 @@ For building and running the application you need:
 - [.Net framework 7 or newer](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 - Visual Studio IDE
 - [Docker 4.17.0 or newer ](https://www.docker.com/products/docker-desktop/)
-
-## Case Study
-
-A New agency requires a User friendly Interface, to view, create and edit Articles posted by the agency.
 
 ## Required Libraries
 
